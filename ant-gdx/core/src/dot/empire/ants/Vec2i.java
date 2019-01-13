@@ -1,8 +1,20 @@
 package dot.empire.ants;
 
+/**
+ * 2-point {@link Integer} Vector class. Used to represent the direction and position of a given {@link Ant}.
+ *
+ * @author Matthew 'siD' Van der Bijl
+ */
+// https://stackoverflow.com/questions/4780119/2d-euclidean-vector-rotations
 public class Vec2i {
 
+    /**
+     * X-axis component.
+     */
     public int x;
+    /**
+     * Y-axis component.
+     */
     public int y;
 
     public Vec2i(int x, int y) {
@@ -10,6 +22,9 @@ public class Vec2i {
         this.y = y;
     }
 
+    /**
+     * @param src copy source
+     */
     public Vec2i(Vec2i src) {
         this.x = src.x;
         this.y = src.y;
@@ -60,16 +75,18 @@ public class Vec2i {
         return this;
     }
 
-    public void left() {
-        Vec2i tmp = cpy();
+    public Vec2i left() {
+        final Vec2i tmp = cpy();
         this.x = tmp.y;
         this.y = -tmp.x;
+        return this;
     }
 
-    public void right() {
-        Vec2i tmp = cpy();
+    public Vec2i right() {
+        final Vec2i tmp = cpy();
         this.x = -tmp.y;
         this.y = tmp.x;
+        return this;
     }
 
     public Vec2i cpy() {

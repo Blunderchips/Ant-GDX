@@ -20,12 +20,13 @@ import static com.badlogic.gdx.graphics.GL20.GL_COLOR_BUFFER_BIT;
 /**
  * Main class.
  */
-public final class Ants extends ApplicationAdapter implements Disposable {
+// https://en.wikipedia.org/wiki/Langton%27s_ant
+public final class LangtonsAnt extends ApplicationAdapter implements Disposable {
 
     /**
      * Tag for logging;
      */
-    public static final String TAG = "Ants-GDX";
+    public static final String TAG = "LangtonsAnt-GDX";
 
     public static final int WIDTH = 1600;
     public static final int HEIGHT = 900;
@@ -65,7 +66,7 @@ public final class Ants extends ApplicationAdapter implements Disposable {
 
         this.size = new Vec2i((int) (WIDTH / (float) numBlocks), (int) (HEIGHT / (float) numBlocks));
 
-        Gdx.app.debug(Ants.TAG, String.format("Size = %s", size.toString()));
+        Gdx.app.debug(LangtonsAnt.TAG, String.format("Size = %s", size.toString()));
 
         int numAnts = 100;
         this.ants = new ArrayList<Ant>(numAnts);
@@ -84,6 +85,7 @@ public final class Ants extends ApplicationAdapter implements Disposable {
     /**
      * Tick. Called once per frame. Updates and renders the simulation.
      */
+    @SuppressWarnings("LibGDXProfilingCode")
     @Override
     public void render() {
         // update

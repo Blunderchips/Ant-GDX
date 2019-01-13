@@ -4,13 +4,21 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 
 /**
- * Ants that move across the world.
+ * Ant that move across the world.
  */
-// TODO: 13 Jan 2019 toString
 public class Ant {
 
+    /**
+     * Index of {@link LangtonsAnt#COLOURS}.
+     */
     private int colour;
+    /**
+     * The direction the ant is moving in.
+     */
     private Vec2i direction;
+    /**
+     * The current position of the ant.
+     */
     private Vec2i position;
 
     public Ant(int colour, Vec2i position) {
@@ -18,12 +26,16 @@ public class Ant {
         this.position = position;
 
         this.direction = new Vec2i(0, 1);
+        Gdx.app.debug(LangtonsAnt.TAG, String.format("New ant = %d", colour));
     }
 
     /**
      * Update.
+     *
+     * @param field  grid of cells
+     * @param  parent parent engine
      */
-    public void tick(int[][] field, Ants parent) {
+    public void tick(int[][] field, LangtonsAnt parent) {
         try {
             if (field[position.x][position.y] == 0) {
                 field[position.x][position.y] = colour;
@@ -34,16 +46,29 @@ public class Ant {
             }
             this.position.add(direction);
         } catch (IndexOutOfBoundsException ioobe) {
-            Gdx.app.debug(Ants.TAG, String.format("Removing %s", toString()));
+            Gdx.app.debug(LangtonsAnt.TAG, String.format("Removing %s", toString()));
             parent.getToBeRemoved().add(this);
         }
     }
 
+    /**
+     * @return the colour of the ant.
+     * @see com.badlogic.gdx.graphics.Color
+     * @see LangtonsAnt#COLOURS
+     */
     public Color getColour() {
-        return Ants.COLOURS[colour - 1];
+        return LangtonsAnt.COLOURS[colour - 1];
     }
 
+    /**
+     * @return the current position of the ant
+     */
     public Vec2i getPosition() {
         return this.position;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Ant[%s, %s]", getColour().toString(), getPosition().toString());
     }
 }

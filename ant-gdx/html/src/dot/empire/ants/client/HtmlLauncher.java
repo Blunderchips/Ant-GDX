@@ -3,7 +3,7 @@ package dot.empire.ants.client;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.backends.gwt.GwtApplication;
 import com.badlogic.gdx.backends.gwt.GwtApplicationConfiguration;
-import dot.empire.ants.Ants;
+import dot.empire.ants.LangtonsAnt;
 
 public class HtmlLauncher extends GwtApplication {
 
@@ -46,6 +46,6 @@ public class HtmlLauncher extends GwtApplication {
 
     @Override
     public ApplicationListener createApplicationListener() {
-        return new Ants();
+        return new LangtonsAnt();
     }
 }
