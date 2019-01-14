@@ -40,7 +40,7 @@ public final class DesktopLauncher {
         cfg.backgroundFPS = tickRate;
 
         try {
-            new LwjglApplication(new LangtonsAnt(), cfg);
+            new LwjglApplication(new LangtonsAnt(), cfg); // ResultOfObjectAllocationIgnored
         } catch (Throwable t) {
             Toolkit.getDefaultToolkit().beep();
             t.printStackTrace(System.err);

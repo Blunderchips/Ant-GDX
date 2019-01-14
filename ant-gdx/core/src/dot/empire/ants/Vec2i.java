@@ -17,6 +17,10 @@ public class Vec2i {
      */
     public int y;
 
+    /**
+     * @param x X-component
+     * @param y Y-component
+     */
     public Vec2i(int x, int y) {
         this.x = x;
         this.y = y;
@@ -75,6 +79,11 @@ public class Vec2i {
         return this;
     }
 
+    /**
+     * Turn left.
+     *
+     * @return {@code this} for chaining
+     */
     public Vec2i left() {
         final Vec2i tmp = cpy();
         this.x = tmp.y;
@@ -82,6 +91,11 @@ public class Vec2i {
         return this;
     }
 
+    /**
+     * Turn right.
+     *
+     * @return {@code this} for chaining
+     */
     public Vec2i right() {
         final Vec2i tmp = cpy();
         this.x = -tmp.y;
@@ -89,6 +103,10 @@ public class Vec2i {
         return this;
     }
 
+    /**
+     * @return a new copy of {@code this}
+     * @see #Vec2i(Vec2i)
+     */
     public Vec2i cpy() {
         return new Vec2i(this);
     }

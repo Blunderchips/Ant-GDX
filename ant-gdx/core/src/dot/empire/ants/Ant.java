@@ -21,11 +21,17 @@ public class Ant {
      */
     private Vec2i position;
 
+    /**
+     * Constructs a new ant
+     *
+     * @param colour   The colour of the ant. Index in the {@link LangtonsAnt#COLOURS} array
+     * @param position The starting position of the ant
+     */
     public Ant(int colour, Vec2i position) {
         this.colour = colour;
         this.position = position;
 
-        this.direction = new Vec2i(0, 1);
+        this.direction = new Vec2i(0, 1); // TODO: 14 Jan 2019 Make random
         Gdx.app.debug(LangtonsAnt.TAG, String.format("New ant = %d", colour));
     }
 
@@ -53,7 +59,6 @@ public class Ant {
 
     /**
      * @return the colour of the ant.
-     * @see com.badlogic.gdx.graphics.Color
      * @see LangtonsAnt#COLOURS
      */
     public Color getColour() {
@@ -67,6 +72,11 @@ public class Ant {
         return this.position;
     }
 
+    /**
+     * @return The colour and the position of the ant
+     * @see #getColour()
+     * @see #getPosition()
+     */
     @Override
     public String toString() {
         return String.format("Ant[%s, %s]", getColour().toString(), getPosition().toString());

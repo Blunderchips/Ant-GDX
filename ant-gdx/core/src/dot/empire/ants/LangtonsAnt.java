@@ -19,6 +19,8 @@ import static com.badlogic.gdx.graphics.GL20.GL_COLOR_BUFFER_BIT;
 
 /**
  * Main class.
+ *
+ * @author Matthew 'siD' Van der Bijl
  */
 // https://en.wikipedia.org/wiki/Langton%27s_ant
 public final class LangtonsAnt extends ApplicationAdapter implements Disposable {
@@ -28,25 +30,54 @@ public final class LangtonsAnt extends ApplicationAdapter implements Disposable 
      */
     public static final String TAG = "LangtonsAnt-GDX";
 
+    /**
+     * The width of the screen in pixels.
+     */
     public static final int WIDTH = 1600;
+    /**
+     * The height of the screen in pixels.
+     */
     public static final int HEIGHT = 900;
 
-    public static final Color[] COLOURS = {CHARTREUSE, GOLD, TAN, SCARLET,
-            PINK, VIOLET, SKY, VIOLET};
+    /**
+     * Potential {@link Ant} colours.
+     */
+    public static final Color[] COLOURS = {
+            CHARTREUSE, GOLD, TAN, SCARLET,
+            PINK, VIOLET, SKY, VIOLET
+    };
 
+    /**
+     * Used to render the world.
+     */
     private ShapeRenderer renderer;
+    /**
+     * World grid.
+     */
     private int[][] field;
+    /**
+     * The size of each cell in the world grid.
+     */
     private Vec2i size;
-    private int numBlocks = 200;
+
+    private int numBlocks = 200; // TODO: 14 Jan 2019 remove
 
     /**
      * Moving ants of the word.
      */
     private List<Ant> ants;
+    /**
+     * {@code LinkedList} of ants that need to be removed from the world as they have reached its limits.
+     */
     private List<Ant> toBeRemoved;
-
+    /**
+     * Prints simulation frame per seconds (fps) to the console.
+     */
     private FPSLogger fpsLogger;
 
+    /**
+     * Called on start up.
+     */
     @Override
     public void create() {
         Gdx.app.setLogLevel(Application.LOG_DEBUG);
@@ -61,6 +92,9 @@ public final class LangtonsAnt extends ApplicationAdapter implements Disposable 
         this.toBeRemoved = new LinkedList<Ant>();
     }
 
+    /**
+     * Initialise the world.
+     */
     private void init() {
         this.field = new int[numBlocks][numBlocks];
 
@@ -68,7 +102,7 @@ public final class LangtonsAnt extends ApplicationAdapter implements Disposable 
 
         Gdx.app.debug(LangtonsAnt.TAG, String.format("Size = %s", size.toString()));
 
-        int numAnts = 100;
+        int numAnts = 100; // number of ants in the world
         this.ants = new ArrayList<Ant>(numAnts);
         for (int i = 0; i < numAnts; i++) {
             addAnt();
@@ -85,12 +119,12 @@ public final class LangtonsAnt extends ApplicationAdapter implements Disposable 
     /**
      * Tick. Called once per frame. Updates and renders the simulation.
      */
-    @SuppressWarnings("LibGDXProfilingCode")
     @Override
+    @SuppressWarnings("LibGDXProfilingCode")
     public void render() {
         // update
-        this.fpsLogger.log();
-        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+        this.fpsLogger.log(); // LibGDXProfilingCode
+        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) { // restart
             init();
             return;
         }
@@ -104,8 +138,9 @@ public final class LangtonsAnt extends ApplicationAdapter implements Disposable 
         this.toBeRemoved.clear();
 
         // render
-        Gdx.gl.glClear(GL_COLOR_BUFFER_BIT);
+        Gdx.gl.glClear(GL_COLOR_BUFFER_BIT); // clear screen
 
+        // render world grid
         this.renderer.begin(ShapeRenderer.ShapeType.Filled);
         {
             for (int x = 0; x < field.length; x++) {
@@ -122,6 +157,9 @@ public final class LangtonsAnt extends ApplicationAdapter implements Disposable 
         this.renderer.end();
     }
 
+    /**
+     * Called on shutdown.
+     */
     @Override
     public void dispose() {
         this.renderer.dispose();
